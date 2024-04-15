@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-
 const UploadBrand = () => {
   const [name, setName] = useState("");
 

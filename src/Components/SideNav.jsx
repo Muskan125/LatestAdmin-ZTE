@@ -5,7 +5,8 @@ import AddSubCat from "./AddSubCat";
 import Categories from "../Pages/Categories";
 import UploadBrand from "./UploadBrand";
 import ViewProduct from "./ViewProduct";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import Formm from "./Formm";
 
 const SideNav = () => {
   const [mainModel, setMainModel] = useState(true);
@@ -14,6 +15,7 @@ const SideNav = () => {
   const [category, setCategory] = useState(false);
   const [brand, setBrand] = useState(false);
   const [product, setProduct] = useState(false);
+  const [formm, setFromm] = useState(false);
   const navigate = useNavigate();
 
   const showMainModel = () => {
@@ -23,6 +25,7 @@ const SideNav = () => {
     setBrand(false);
     setCategory(false);
     setProduct(false);
+    setFromm(false);
   };
   const showEnquiry = () => {
     setEnquiryData(true);
@@ -31,6 +34,7 @@ const SideNav = () => {
     setBrand(false);
     setCategory(false);
     setProduct(false);
+    setFromm(false);
   };
   const showSubCat = () => {
     setSubcat(true);
@@ -39,6 +43,7 @@ const SideNav = () => {
     setBrand(false);
     setCategory(false);
     setProduct(false);
+    setFromm(false);
   };
   const showCategory = () => {
     setCategory(true);
@@ -47,6 +52,7 @@ const SideNav = () => {
     setEnquiryData(false);
     setMainModel(false);
     setProduct(false);
+    setFromm(false);
   };
   const uploadBrand = () => {
     setCategory(false);
@@ -55,9 +61,20 @@ const SideNav = () => {
     setEnquiryData(false);
     setMainModel(false);
     setProduct(false);
+    setFromm(false);
   };
   const showProduct = () => {
     setProduct(true);
+    setCategory(false);
+    setBrand(false);
+    setSubcat(false);
+    setEnquiryData(false);
+    setMainModel(false);
+    setFromm(false);
+  };
+  const showForm = () => {
+    setFromm(true);
+    setProduct(false);
     setCategory(false);
     setBrand(false);
     setSubcat(false);
@@ -71,55 +88,60 @@ const SideNav = () => {
     navigate("/");
   };
   return (
-    <div className=" flex gap-5">
+    <div className=" flex gap-5 h-[100vh]">
       <div className=" h-[100vh] w-80 bg-blue-500 text-white flex flex-col  justify-between">
-      <div className="flex flex-col gap-2">
-        <input
-          type="button"
-          value=" Add model"
-          className=" bg-blue-600 p-3"
-          onClick={showMainModel}
-        />
-        <input
-          type="button"
-          value=" Enquiry"
-          className=" bg-blue-600 p-3"
-          onClick={showEnquiry}
-        />
-        <input
-          type="button"
-          value="Upload Subcategory"
-          className=" bg-blue-600 p-3"
-          onClick={showSubCat}
-        />
-        <input
-          type="button"
-          value="show category"
-          className=" bg-blue-600 p-3"
-          onClick={showCategory}
-        />
-        <input
-          type="button"
-          value="upload brand"
-          className=" bg-blue-600 p-3"
-          onClick={uploadBrand}
-        />
-        <input
-          type="button"
-          value="show product"
-          className=" bg-blue-600 p-3"
-          onClick={showProduct}
-        />
+        <div className="flex flex-col gap-2">
+          <input
+            type="button"
+            value=" Add model"
+            className=" bg-blue-600 p-3"
+            onClick={showMainModel}
+          />
+          <input
+            type="button"
+            value=" Enquiry"
+            className=" bg-blue-600 p-3"
+            onClick={showEnquiry}
+          />
+          <input
+            type="button"
+            value="Upload Subcategory"
+            className=" bg-blue-600 p-3"
+            onClick={showSubCat}
+          />
+          <input
+            type="button"
+            value="show category"
+            className=" bg-blue-600 p-3"
+            onClick={showCategory}
+          />
+          <input
+            type="button"
+            value="upload brand"
+            className=" bg-blue-600 p-3"
+            onClick={uploadBrand}
+          />
+          <input
+            type="button"
+            value="show product"
+            className=" bg-blue-600 p-3"
+            onClick={showProduct}
+          />
+          <input
+            type="button"
+            value="show Form"
+            className=" bg-blue-600 p-3"
+            onClick={showForm}
+          />
         </div>
-      <div>
-      <input
-          type="button"
-          value="Log Out"
-          className=" bg-red-600 p-3"
-          onClick={handleLogout}
-          
-        />
-      </div>
+        <div>
+          <input
+            type="button"
+            value="Log Out"
+            className=" bg-red-600 p-3"
+            onClick={handleLogout}
+          />
+        </div>
       </div>
       <div>{mainModel ? <MainModel /> : <></>}</div>
       <div>{enquiryData ? <EnquiryHistory /> : <></>}</div>
@@ -127,8 +149,16 @@ const SideNav = () => {
       <div>{category ? <Categories /> : <></>}</div>
       <div>{brand ? <UploadBrand /> : <></>}</div>
       <div>{product ? <ViewProduct /> : <></>}</div>
+      <div>{formm ? <Formm /> : <></>}</div>
     </div>
   );
 };
 
 export default SideNav;
+// fields.forEach((field) => {
+//   formData.append("keyname", field.keyname);
+//   formData.append("keyType", field.keyType);
+//   formData.append("ismandatory", field.ismandatory ? "true" : "false"); // Send "true" if checked, "false" otherwise
+//   formData.append("isfilter", field.isfilter ? "true" : "false"); // Send "true" if checked, "false" otherwise
+//   formData.append("isvariant", field.isvariant ? "true" : "false"); // Send "true" if checked, "false" otherwise
+// });
