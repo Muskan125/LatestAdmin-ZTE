@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const UpdateForm = ({ onUpdate }) => {
+const Formm = ({ onUpdate }) => {
   const [name, setName] = useState("");
   const [fields, setFields] = useState([
     {
@@ -16,7 +16,6 @@ const UpdateForm = ({ onUpdate }) => {
   const handleFieldChange = (index, key, value) => {
     const updatedFields = [...fields];
     updatedFields[index][key] = value;
-    console.log("Updated fields:", updatedFields); // Log updated fields
     setFields(updatedFields);
   };
 
@@ -29,7 +28,12 @@ const UpdateForm = ({ onUpdate }) => {
       ismandatory: false,
     };
     const updatedFields = [...fields, newField];
-    console.log("Updated fields:", updatedFields); // Log updated fields
+    setFields(updatedFields);
+  };
+
+  const handleDeleteField = (index) => {
+    const updatedFields = [...fields];
+    updatedFields.splice(index, 1);
     setFields(updatedFields);
   };
 
@@ -38,13 +42,14 @@ const UpdateForm = ({ onUpdate }) => {
     try {
       if (
         fields.some(
-          ((field) =>
+          (field) =>
             !field.keyname ||
             !field.keyType ||
             field.isfilter === undefined ||
             field.isvariant === undefined ||
-            field.ismandatory === undefined) || !name
-        )
+            field.ismandatory === undefined
+        ) ||
+        !name
       ) {
         return window.alert("Please fill all the information");
       }
@@ -52,14 +57,12 @@ const UpdateForm = ({ onUpdate }) => {
       const formData = new FormData();
       formData.append("name", name);
       fields.forEach((field) => {
-        formData.append("keyname", field.keyname);
-        formData.append("keyType", field.keyType);
-        formData.append("ismandatory", field.ismandatory ? "true" : "false"); // Send "true" if checked, "false" otherwise
-        formData.append("isfilter", field.isfilter ? "true" : "false"); // Send "true" if checked, "false" otherwise
-        formData.append("isvariant", field.isvariant ? "true" : "false"); // Send "true" if checked, "false" otherwise
+        formData.append("keyname[]", field.keyname);
+        formData.append("keyType[]", field.keyType);
+        formData.append("ismandatory[]", field.ismandatory ? "true" : "false");
+        formData.append("isfilter[]", field.isfilter ? "true" : "false");
+        formData.append("isvariant[]", field.isvariant ? "true" : "false");
       });
-
-      console.log("Form data:", formData); // Log form data
 
       await axios.post(
         "https://onestore-vert.vercel.app/add-specifications",
@@ -73,7 +76,6 @@ const UpdateForm = ({ onUpdate }) => {
 
       window.alert("Data added successfully");
 
-      // Clear the form fields after submission
       setFields([
         {
           keyname: "",
@@ -109,6 +111,7 @@ const UpdateForm = ({ onUpdate }) => {
             <th className="text-center">Variant</th>
             <th className="text-center">Filter</th>
             <th className="text-center">Mandatory</th>
+            <th className="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -165,6 +168,15 @@ const UpdateForm = ({ onUpdate }) => {
                   }
                 />
               </td>
+              <td className="mr-4 py-2">
+                <button
+                  type="button"
+                  onClick={() => handleDeleteField(index)}
+                  className="text-red-500"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -188,4 +200,4 @@ const UpdateForm = ({ onUpdate }) => {
   );
 };
 
-export default UpdateForm;
+export default Formm;

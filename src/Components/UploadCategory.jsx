@@ -13,20 +13,21 @@ const UploadCategory = () => {
   const handleSubmit = async () => {
     try {
       console.log("Categories Images:", Catimg);
-      if (!cat_name || !Catimg.length) {
+      if (!cat_name) {
+        // || !Catimg.length
         return window.alert("Please fill all the information");
       }
 
       const formData = new FormData();
       formData.append("name", cat_name);
 
-      console.log("Before map, images:", Catimg);
+      // console.log("Before map, images:", Catimg);
 
       // Append images to formData using map
-      const imageFiles = Catimg.map((image) => {
-        formData.append("Categpry Images", image);
-        return image;
-      });
+      // const imageFiles = Catimg.map((image) => {
+      //   formData.append("Categpry Images", image);
+      //   return image;
+      // });
 
       await axios.post("https://onestore-vert.vercel.app/category", formData, {
         headers: {
@@ -36,7 +37,7 @@ const UploadCategory = () => {
 
       window.alert("Category added successfully");
       setCatName(""); // Clear input field after successful submission
-      setCatimg([]);
+      // setCatimg([]);
       window.location.reload();
     } catch (error) {
       console.error("Error submitting form:", error);

@@ -7,6 +7,7 @@ import UploadBrand from "./UploadBrand";
 import ViewProduct from "./ViewProduct";
 import { useNavigate } from "react-router-dom";
 import Formm from "./Formm";
+import FetchSpecifications from "./FetchSpecifications";
 
 const SideNav = () => {
   const [mainModel, setMainModel] = useState(true);
@@ -16,6 +17,7 @@ const SideNav = () => {
   const [brand, setBrand] = useState(false);
   const [product, setProduct] = useState(false);
   const [formm, setFromm] = useState(false);
+  const [getspecification, setGetSpecification] = useState(false);
   const navigate = useNavigate();
 
   const showMainModel = () => {
@@ -26,6 +28,7 @@ const SideNav = () => {
     setCategory(false);
     setProduct(false);
     setFromm(false);
+    setGetSpecification(false);
   };
   const showEnquiry = () => {
     setEnquiryData(true);
@@ -35,6 +38,7 @@ const SideNav = () => {
     setCategory(false);
     setProduct(false);
     setFromm(false);
+    setGetSpecification(false);
   };
   const showSubCat = () => {
     setSubcat(true);
@@ -44,6 +48,7 @@ const SideNav = () => {
     setCategory(false);
     setProduct(false);
     setFromm(false);
+    setGetSpecification(false);
   };
   const showCategory = () => {
     setCategory(true);
@@ -53,6 +58,7 @@ const SideNav = () => {
     setMainModel(false);
     setProduct(false);
     setFromm(false);
+    setGetSpecification(false);
   };
   const uploadBrand = () => {
     setCategory(false);
@@ -62,6 +68,7 @@ const SideNav = () => {
     setMainModel(false);
     setProduct(false);
     setFromm(false);
+    setGetSpecification(false);
   };
   const showProduct = () => {
     setProduct(true);
@@ -71,9 +78,21 @@ const SideNav = () => {
     setEnquiryData(false);
     setMainModel(false);
     setFromm(false);
+    setGetSpecification(false);
   };
   const showForm = () => {
     setFromm(true);
+    setProduct(false);
+    setCategory(false);
+    setBrand(false);
+    setSubcat(false);
+    setEnquiryData(false);
+    setMainModel(false);
+    setGetSpecification(false);
+  };
+  const getSpecifications = () => {
+    setGetSpecification(true);
+    setFromm(false);
     setProduct(false);
     setCategory(false);
     setBrand(false);
@@ -133,6 +152,12 @@ const SideNav = () => {
             className=" bg-blue-600 p-3"
             onClick={showForm}
           />
+          <input
+            type="button"
+            value="Get Specifications"
+            className=" bg-blue-600 p-3"
+            onClick={getSpecifications}
+          />
         </div>
         <div>
           <input
@@ -150,11 +175,13 @@ const SideNav = () => {
       <div>{brand ? <UploadBrand /> : <></>}</div>
       <div>{product ? <ViewProduct /> : <></>}</div>
       <div>{formm ? <Formm /> : <></>}</div>
+      <div>{getspecification ? <FetchSpecifications /> : <></>}</div>
     </div>
   );
 };
 
 export default SideNav;
+
 // fields.forEach((field) => {
 //   formData.append("keyname", field.keyname);
 //   formData.append("keyType", field.keyType);

@@ -22,7 +22,7 @@ const AddSubCat = () => {
     fetchCategories();
   }, []);
 
-  // Uploading Category.....!!!!!!!
+  // Uploading Category & SubCategory.....!!!!!!!
   const SubmitSubCat = async () => {
     try {
       if (!subcat || !selectedCat) {
