@@ -10,9 +10,7 @@ const AddSubCat = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/categories"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/categories");
         console.log(response.data);
         setCategories(response.data);
       } catch (error) {
@@ -33,15 +31,11 @@ const AddSubCat = () => {
       formData.append("name", subcat);
       formData.append("category", selectedCat);
 
-      await axios.post(
-        "https://onestore-vert.vercel.app/sub_category",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.post("http://97.74.92.218:7776/sub_category", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       window.alert("Data added successfully");
       window.location.reload();

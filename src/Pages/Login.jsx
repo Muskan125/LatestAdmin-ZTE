@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import login from "../assets/login.png";
 
 const Login = () => {
@@ -34,12 +34,9 @@ const Login = () => {
 
   const submitLogin = async () => {
     try {
-      const { data } = await axios.post(
-        "https://onestore-vert.vercel.app/moblogin",
-        {
-          mob: phoneNumber,
-        }
-      );
+      const { data } = await axios.post("http://97.74.92.218:7776/moblogin", {
+        mob: phoneNumber,
+      });
 
       if (data.token) {
         const expirationTime = Date.now() + 86400000; // 24 hours

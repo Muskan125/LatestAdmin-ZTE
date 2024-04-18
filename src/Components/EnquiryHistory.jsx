@@ -7,15 +7,13 @@ const EnquiryHistory = () => {
   useEffect(() => {
     const fetchEnquiry = async () => {
       try {
-    //     const token = localStorage.getItem('tokenData');
-    // if (token) {
-    //   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    // }
-    // console.log(token);
+        //     const token = localStorage.getItem('tokenData');
+        // if (token) {
+        //   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        // }
+        // console.log(token);
 
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/inquiries"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/inquiries");
         setEnquiry(response.data);
         console.log("Enquiry History :", response.data); // Use response.data instead of enquiry
       } catch (error) {
@@ -45,11 +43,21 @@ const EnquiryHistory = () => {
             {enquiry.map((enquiryItem) => (
               <tr key={enquiryItem._id}>
                 <td className="border px-4 py-2">{enquiryItem.date}</td>
-                <td className="border px-4 py-2">{enquiryItem.product.productName}</td>
-                <td className="border px-4 py-2">{enquiryItem.shop.shopName}</td>
-                <td className="border px-4 py-2">{enquiryItem.shop.shopNumber}</td>
-                <td className="border px-4 py-2">{enquiryItem.customer.customerName}</td>
-                <td className="border px-4 py-2">{enquiryItem.customer.customerNumber}</td>
+                <td className="border px-4 py-2">
+                  {enquiryItem.product.productName}
+                </td>
+                <td className="border px-4 py-2">
+                  {enquiryItem.shop.shopName}
+                </td>
+                <td className="border px-4 py-2">
+                  {enquiryItem.shop.shopNumber}
+                </td>
+                <td className="border px-4 py-2">
+                  {enquiryItem.customer.customerName}
+                </td>
+                <td className="border px-4 py-2">
+                  {enquiryItem.customer.customerNumber}
+                </td>
               </tr>
             ))}
           </tbody>

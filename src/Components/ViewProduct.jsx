@@ -9,9 +9,7 @@ const ViewProduct = () => {
   useEffect(() => {
     const fetchBrands = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/brands"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/brands");
         setBrands(response.data);
       } catch (error) {
         console.error("Error Fetching brands data: ", error);
@@ -21,7 +19,7 @@ const ViewProduct = () => {
     const fetchSubCategories = async () => {
       try {
         const response = await axios.get(
-          "https://onestore-vert.vercel.app/selectedsubcategory/"
+          "http://97.74.92.218:7776/selectedsubcategory/"
         );
         setSubCategories(response.data);
       } catch (error) {
@@ -31,9 +29,7 @@ const ViewProduct = () => {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/categories"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/categories");
         setCategories(response.data);
       } catch (error) {
         console.error("Error Fetching categories data: ", error);
@@ -99,7 +95,7 @@ const ViewProduct = () => {
                 <h5 className="text-lg font-semibold">{brand.brandName}</h5>
                 {brand.brandImage ? (
                   <img
-                    src={`https://onestore-vert.vercel.app/${brand.brandImage}`}
+                    src={`http://97.74.92.218:7776/${brand.brandImage}`}
                     alt={`Brand ${brand.brandName} image`}
                     className="mt-2 w-full h-36 object-cover"
                   />

@@ -4,16 +4,14 @@ import axios from "axios";
 const FetchSpecifications = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCat, setSelectedCat] = useState("");
-  const [productName, setProductName] = useState(""); // State to store product name
+  const [productName, setProductName] = useState("");
   const [specification, setSpecification] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/categories"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/categories");
         setCategories(response.data);
       } catch (error) {
         console.error("Error Fetching categories: ", error);
@@ -24,15 +22,12 @@ const FetchSpecifications = () => {
 
   const fetchSpecificationsByCategory = async (categoryId) => {
     try {
-      setLoading(true);
       const response = await axios.get(
-        `https://onestore-vert.vercel.app/specification/${categoryId}`
+        `http://97.74.92.218:7776/specification/${categoryId}`
       );
       setSpecification(response.data);
     } catch (error) {
       console.error("Error Fetching specifications: ", error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -42,11 +37,11 @@ const FetchSpecifications = () => {
     }
   }, [selectedCat]);
 
-  useEffect(() => {
-    console.log("data set successfully :", specification); // Log the updated state when it changes
-  }, [specification]);
+  const handleFileInputChange = (event) => {
+    const files = event.target.files;
+    setSelectedImages(files);
+  };
 
-  // Function to render input based on property type
   const renderInput = (type, name) => {
     switch (type) {
       case "String":
@@ -88,7 +83,6 @@ const FetchSpecifications = () => {
     }
   };
 
-  // Function to handle form input change
   const handleInputChange = (event, name) => {
     const { value, type, checked } = event.target;
     const newValue = type === "checkbox" ? checked : value;
@@ -100,34 +94,28 @@ const FetchSpecifications = () => {
 
   const [formData, setFormData] = useState({});
 
-  // Function to handle form submission
-  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Create a new FormData object
       const formDataToSend = new FormData();
-
-      // Append product name and category ID
       formDataToSend.append("productName", productName);
       formDataToSend.append("properties.category", selectedCat);
+      for (let i = 0; i < selectedImages.length; i++) {
+        formDataToSend.append("photo", selectedImages[i]);
+      }
 
-      // Append specifications
       specification.forEach((spec) => {
-        // Append specification ID
         formDataToSend.append("properties.vertical", spec._id);
         formDataToSend.append("type", spec.name);
 
-        // Append specification details
         Object.entries(spec.specification).forEach(([key, value]) => {
           const inputValue = formData[key];
           formDataToSend.append(`specification.${key}`, inputValue);
         });
       });
 
-      // Send data to the backend
       const response = await axios.post(
-        "https://onestore-vert.vercel.app/addproduct",
+        "http://97.74.92.218:7776/addproduct",
         formDataToSend,
         {
           headers: {
@@ -166,6 +154,16 @@ const FetchSpecifications = () => {
           onChange={(e) => setProductName(e.target.value)}
         />
       </div>
+      <div className="mb-4">
+        <h2 className="text-lg font-bold mb-2">Select Images: </h2>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleFileInputChange}
+        />
+      </div>
+
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <h3 className="text-lg font-bold mb-2">Specifications:</h3>

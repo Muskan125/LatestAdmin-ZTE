@@ -13,7 +13,7 @@ const UploadBrand = () => {
       const formData = new FormData();
       formData.append("name", name);
 
-      await axios.post("https://onestore-vert.vercel.app/brand", formData, {
+      await axios.post("http://97.74.92.218:7776/brand", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

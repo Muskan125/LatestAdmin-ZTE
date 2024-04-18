@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const MainModel = () => {
   const [productName, setProductName] = useState("");
@@ -51,7 +51,7 @@ const MainModel = () => {
         formData.append("Categpry Images", image);
         return image;
       });
-      await axios.post("https://onestore-vert.vercel.app/addmodel", formData, {
+      await axios.post("http://97.74.92.218:7776/addmodel", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -76,9 +76,7 @@ const MainModel = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/categories"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/categories");
         setCategories(response.data);
       } catch (error) {
         console.error("Error Fetching data: ", error);
@@ -92,7 +90,7 @@ const MainModel = () => {
       try {
         if (selectedCat) {
           const response = await axios.get(
-            `https://onestore-vert.vercel.app/selectedsubcategory/${selectedCat}`
+            `http://97.74.92.218:7776/selectedsubcategory/${selectedCat}`
           );
           setSubCategories(response.data);
         }
@@ -106,9 +104,7 @@ const MainModel = () => {
   useEffect(() => {
     const fetchBrands = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/brands"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/brands");
         setBrands(response.data);
       } catch (error) {
         console.error("Error Fetching data: ", error);
@@ -224,8 +220,6 @@ const MainModel = () => {
             >
               Upload
             </button>
-       
-
           </div>
         </div>
       </div>

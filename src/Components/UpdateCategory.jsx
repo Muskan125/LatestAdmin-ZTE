@@ -8,9 +8,7 @@ const UpdateCategory = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/categories"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/categories");
         setCategories(response.data);
       } catch (error) {
         console.error("Error Fetching data: ", error);
@@ -29,7 +27,7 @@ const UpdateCategory = () => {
       formData.append("name", newName);
 
       await axios.post(
-        `https://onestore-vert.vercel.app/category/${categoryId}`,
+        `http://97.74.92.218:7776/category/${categoryId}`,
         formData,
         {
           headers: {
@@ -46,9 +44,7 @@ const UpdateCategory = () => {
 
   const handleCategoryDelete = async (categoryId) => {
     try {
-      await axios.delete(
-        `https://onestore-vert.vercel.app/category/${categoryId}`
-      );
+      await axios.delete(`http://97.74.92.218:7776/category/${categoryId}`);
 
       // Update the local state to remove the deleted category
       setCategories((prevCategories) =>

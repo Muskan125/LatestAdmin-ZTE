@@ -65,7 +65,7 @@ const Formm = ({ onUpdate }) => {
       });
 
       await axios.post(
-        "https://onestore-vert.vercel.app/add-specifications",
+        "http://97.74.92.218:7776/add-specifications",
         formData,
         {
           headers: {
