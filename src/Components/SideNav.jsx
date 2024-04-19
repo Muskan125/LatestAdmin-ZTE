@@ -8,6 +8,8 @@ import ViewProduct from "./ViewProduct";
 import { useNavigate } from "react-router-dom";
 import Formm from "./Formm";
 import FetchSpecifications from "./FetchSpecifications";
+import EditSpecification from "./EditSpecification";
+import Users from "../Pages/Users";
 
 const SideNav = () => {
   const [mainModel, setMainModel] = useState(true);
@@ -18,6 +20,8 @@ const SideNav = () => {
   const [product, setProduct] = useState(false);
   const [formm, setFromm] = useState(false);
   const [getspecification, setGetSpecification] = useState(false);
+  const [editspec, setEditSpec] = useState(false);
+  const [users, setusers] = useState(false);
   const navigate = useNavigate();
 
   const showMainModel = () => {
@@ -29,6 +33,8 @@ const SideNav = () => {
     setProduct(false);
     setFromm(false);
     setGetSpecification(false);
+    setusers(false);
+    setEditSpec(false);
   };
   const showEnquiry = () => {
     setEnquiryData(true);
@@ -39,6 +45,8 @@ const SideNav = () => {
     setProduct(false);
     setFromm(false);
     setGetSpecification(false);
+    setusers(false);
+    setEditSpec(false);
   };
   const showSubCat = () => {
     setSubcat(true);
@@ -49,6 +57,8 @@ const SideNav = () => {
     setProduct(false);
     setFromm(false);
     setGetSpecification(false);
+    setusers(false);
+    setEditSpec(false);
   };
   const showCategory = () => {
     setCategory(true);
@@ -59,6 +69,8 @@ const SideNav = () => {
     setProduct(false);
     setFromm(false);
     setGetSpecification(false);
+    setusers(false);
+    setEditSpec(false);
   };
   const uploadBrand = () => {
     setCategory(false);
@@ -69,6 +81,8 @@ const SideNav = () => {
     setProduct(false);
     setFromm(false);
     setGetSpecification(false);
+    setusers(false);
+    setEditSpec(false);
   };
   const showProduct = () => {
     setProduct(true);
@@ -79,6 +93,8 @@ const SideNav = () => {
     setMainModel(false);
     setFromm(false);
     setGetSpecification(false);
+    setusers(false);
+    setEditSpec(false);
   };
   const showForm = () => {
     setFromm(true);
@@ -89,6 +105,8 @@ const SideNav = () => {
     setEnquiryData(false);
     setMainModel(false);
     setGetSpecification(false);
+    setusers(false);
+    setEditSpec(false);
   };
   const getSpecifications = () => {
     setGetSpecification(true);
@@ -99,7 +117,34 @@ const SideNav = () => {
     setSubcat(false);
     setEnquiryData(false);
     setMainModel(false);
+    setusers(false);
+    setEditSpec(false);
   };
+  const showusers = () => {
+    setusers(true);
+    setGetSpecification(false);
+    setFromm(false);
+    setProduct(false);
+    setCategory(false);
+    setBrand(false);
+    setSubcat(false);
+    setEnquiryData(false);
+    setMainModel(false);
+    setEditSpec(false);
+  };
+  const editspecs = () => {
+    setEditSpec(true);
+    setusers(false);
+    setGetSpecification(false);
+    setFromm(false);
+    setProduct(false);
+    setCategory(false);
+    setBrand(false);
+    setSubcat(false);
+    setEnquiryData(false);
+    setMainModel(false);
+  };
+
   const handleLogout = () => {
     // Clear localStorage
     localStorage.removeItem("tokenData");
@@ -158,6 +203,18 @@ const SideNav = () => {
             className=" bg-blue-600 p-3"
             onClick={getSpecifications}
           />
+          <input
+            type="button"
+            value="show users"
+            className=" bg-blue-600 p-3"
+            onClick={showusers}
+          />
+          <input
+            type="button"
+            value="Edit Specificaion"
+            className=" bg-blue-600 p-3"
+            onClick={editspecs}
+          />
         </div>
         <div>
           <input
@@ -176,6 +233,8 @@ const SideNav = () => {
       <div>{product ? <ViewProduct /> : <></>}</div>
       <div>{formm ? <Formm /> : <></>}</div>
       <div>{getspecification ? <FetchSpecifications /> : <></>}</div>
+      <div>{users ? <Users /> : <></>}</div>
+      <div>{editspec ? <EditSpecification /> : <></>}</div>
     </div>
   );
 };

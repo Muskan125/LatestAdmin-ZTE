@@ -125,6 +125,8 @@ const FetchSpecifications = () => {
       );
 
       console.log("Data submitted successfully:", response.data);
+      window.alert("Data added successfully");
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting data:", error);
     }
