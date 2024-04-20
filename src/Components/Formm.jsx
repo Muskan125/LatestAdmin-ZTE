@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Formm = ({ onUpdate }) => {
-  const [name, setName] = useState("");
-  const [fields, setFields] = useState([
-    {
-      keyname: "",
-      keyType: "",
-      isvariant: false,
-      isfilter: false,
-      ismandatory: false,
-    },
-  ]);
+const Formm = ({ onUpdate, initialValues }) => {
+  // Receive initialValues as a prop
+  const [name, setName] = useState(initialValues ? initialValues.name : ""); // Set initial value for name field
+  const [fields, setFields] = useState(
+    initialValues
+      ? initialValues.fields.map((field) => ({
+          keyname: field.keyname,
+          keyType: field.keyType,
+          isvariant: field.isvariant,
+          isfilter: field.isfilter,
+          ismandatory: field.ismandatory,
+        }))
+      : [
+          {
+            keyname: "",
+            keyType: "",
+            isvariant: false,
+            isfilter: false,
+            ismandatory: false,
+          },
+        ]
+  );
 
   const handleFieldChange = (index, key, value) => {
     const updatedFields = [...fields];
@@ -86,6 +97,7 @@ const Formm = ({ onUpdate }) => {
         },
       ]);
       setName("");
+      onUpdate(); // Call onUpdate function passed as prop
     } catch (error) {
       console.error("Error submitting form:", error);
     }

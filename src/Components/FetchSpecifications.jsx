@@ -6,7 +6,7 @@ const FetchSpecifications = () => {
   const [selectedCat, setSelectedCat] = useState("");
   const [productName, setProductName] = useState("");
   const [specification, setSpecification] = useState([]);
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedSpec, setSelectedSpec] = useState(""); // State to hold selected specification
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -147,6 +147,22 @@ const FetchSpecifications = () => {
           </option>
         ))}
       </select>
+
+      <div className="mb-4">
+        <h2 className="text-lg font-bold mb-4">Select Specification:</h2>
+        <select
+          value={selectedSpec}
+          onChange={(e) => setSelectedSpec(e.target.value)}
+          className="border border-gray-300 rounded p-2"
+        >
+          <option value="">Select specification</option>
+          {specification.map((spec) => (
+            <option key={spec._id} value={spec._id}>
+              {spec.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="mb-4">
         <h2 className="text-lg font-bold mb-4">Enter Product Name: </h2>
         <input
@@ -165,7 +181,6 @@ const FetchSpecifications = () => {
           onChange={handleFileInputChange}
         />
       </div>
-
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <h3 className="text-lg font-bold mb-2">Specifications:</h3>
@@ -177,17 +192,12 @@ const FetchSpecifications = () => {
               </tr>
             </thead>
             <tbody>
-              {specification.map((spec) => (
-                <React.Fragment key={spec._id}>
-                  <tr>
-                    <td
-                      colSpan="2"
-                      className="text-lg font-bold border px-4 py-2"
-                    >
-                      {spec.name}
-                    </td>
-                  </tr>
-                  {Object.entries(spec.specification).map(([key, value]) => (
+              {selectedSpec && ( // Conditionally render specifications if a category and specification are selected
+                <>
+                  {Object.entries(
+                    specification.find((spec) => spec._id === selectedSpec)
+                      ?.specification || {}
+                  ).map(([key, value]) => (
                     <tr key={key}>
                       <td className="border px-4 py-2">
                         <strong>{key}</strong>
@@ -197,8 +207,8 @@ const FetchSpecifications = () => {
                       </td>
                     </tr>
                   ))}
-                </React.Fragment>
-              ))}
+                </>
+              )}
             </tbody>
           </table>
         </div>

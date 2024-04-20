@@ -1,12 +1,8 @@
-import React from 'react'
-import SideNav from '../Components/SideNav';
+import React from "react";
+// import SideNav from "../Components/SideNav";
 
 const AdminDashboard = () => {
-  return (
-    <div className=' flex gap-10'>
-    <SideNav/>
-    </div>
-  )
-}
+  return <div className=" flex gap-10"></div>;
+};
 
-export default AdminDashboard
+export default AdminDashboard;

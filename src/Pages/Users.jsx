@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Retailer from "../Components/Retailer";
 import Customer from "../Components/Customers";
 const Users = () => {

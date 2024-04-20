@@ -66,81 +66,80 @@ const EnquiryHistory = () => {
   }
 
   return (
-    <>
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Enquiry History</h2>
-        <div className="mb-4">
-          <label htmlFor="yearPicker" className="mr-2">
-            Select Year:
-          </label>
-          <input
-            type="number"
-            id="yearPicker"
-            onChange={handleYearChange}
-            value={selectedYear || ""}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="monthPicker" className="mr-2">
-            Select Month:
-          </label>
-          <input
-            type="month"
-            id="monthPicker"
-            onChange={handleMonthChange}
-            value={selectedMonth || ""}
-            disabled={!selectedYear} // Disable month picker if year is not selected
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="datePicker" className="mr-2">
-            Select Date:
-          </label>
-          <input
-            type="date"
-            id="datePicker"
-            onChange={handleDateChange}
-            value={selectedDate || ""}
-          />
-        </div>
-        <table className="table-auto w-full">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">Date Time</th>
-              <th className="px-4 py-2">Product Name</th>
-              <th className="px-4 py-2">Shop Name</th>
-              <th className="px-4 py-2">Shop Number</th>
-              <th className="px-4 py-2">Customer Name</th>
-              <th className="px-4 py-2">Customer Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredEnquiry.map((enquiryItem) => (
-              <tr key={enquiryItem._id}>
-                <td className="border px-4 py-2">
-                  {formatDate(enquiryItem.date)}
-                </td>
-                <td className="border px-4 py-2">
-                  {enquiryItem.product.productName}
-                </td>
-                <td className="border px-4 py-2">
-                  {enquiryItem.shop.shopName}
-                </td>
-                <td className="border px-4 py-2">
-                  {enquiryItem.shop.shopNumber}
-                </td>
-                <td className="border px-4 py-2">
-                  {enquiryItem.customer.customerName}
-                </td>
-                <td className="border px-4 py-2">
-                  {enquiryItem.customer.customerNumber}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">Enquiry History</h2>
+      <div className="mb-4">
+        <label htmlFor="yearPicker" className="mr-2">
+          Select Year:
+        </label>
+        <input
+          type="number"
+          id="yearPicker"
+          onChange={handleYearChange}
+          value={selectedYear || ""}
+          className="border border-gray-300 rounded p-2"
+        />
       </div>
-    </>
+      <div className="mb-4">
+        <label htmlFor="monthPicker" className="mr-2">
+          Select Month:
+        </label>
+        <input
+          type="month"
+          id="monthPicker"
+          onChange={handleMonthChange}
+          value={selectedMonth || ""}
+          disabled={!selectedYear}
+          className="border border-gray-300 rounded p-2"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="datePicker" className="mr-2">
+          Select Date:
+        </label>
+        <input
+          type="date"
+          id="datePicker"
+          onChange={handleDateChange}
+          value={selectedDate || ""}
+          className="border border-gray-300 rounded p-2"
+        />
+      </div>
+      <table className="table-auto w-full">
+        <thead>
+          <tr>
+            <th className="px-4 py-2">Date Time</th>
+            <th className="px-4 py-2">Product Name</th>
+            <th className="px-4 py-2">Shop Name</th>
+            <th className="px-4 py-2">Shop Number</th>
+            <th className="px-4 py-2">Customer Name</th>
+            <th className="px-4 py-2">Customer Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredEnquiry.map((enquiryItem) => (
+            <tr key={enquiryItem._id}>
+              <td className="border px-4 py-2">
+                {formatDate(enquiryItem.date)}
+              </td>
+              <td className="border px-4 py-2">
+                {enquiryItem.product.productName}
+              </td>
+              <td className="border px-4 py-2">{enquiryItem.shop.shopName}</td>
+              <td className="border px-4 py-2">
+                {enquiryItem.shop.shopNumber}
+              </td>
+              <td className="border px-4 py-2">
+                {enquiryItem.customer.customerName}
+              </td>
+              <td className="border px-4 py-2">
+                {enquiryItem.customer.customerNumber}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
