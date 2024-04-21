@@ -6,6 +6,8 @@ const EnquiryHistory = () => {
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Number of items per page
 
   useEffect(() => {
     const fetchEnquiry = async () => {
@@ -65,6 +67,13 @@ const EnquiryHistory = () => {
     );
   }
 
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredEnquiry.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Enquiry History</h2>
@@ -89,7 +98,6 @@ const EnquiryHistory = () => {
           id="monthPicker"
           onChange={handleMonthChange}
           value={selectedMonth || ""}
-          disabled={!selectedYear}
           className="border border-gray-300 rounded p-2"
         />
       </div>
@@ -105,6 +113,8 @@ const EnquiryHistory = () => {
           className="border border-gray-300 rounded p-2"
         />
       </div>
+
+      {/* Table for displaying data */}
       <table className="table-auto w-full">
         <thead>
           <tr>
@@ -117,7 +127,7 @@ const EnquiryHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredEnquiry.map((enquiryItem) => (
+          {currentItems.map((enquiryItem) => (
             <tr key={enquiryItem._id}>
               <td className="border px-4 py-2">
                 {formatDate(enquiryItem.date)}
@@ -139,6 +149,27 @@ const EnquiryHistory = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Pagination */}
+      <div className="mt-4">
+        <ul className="flex list-none p-0">
+          {Array.from(
+            { length: Math.ceil(filteredEnquiry.length / itemsPerPage) },
+            (_, index) => (
+              <li key={index} className="cursor-pointer">
+                <button
+                  onClick={() => paginate(index + 1)}
+                  className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${
+                    currentPage === index + 1 ? "bg-blue-700" : ""
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            )
+          )}
+        </ul>
+      </div>
     </div>
   );
 };
