@@ -6,9 +6,7 @@ const Retailer = () => {
   useEffect(() => {
     const fetchRetailers = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/users"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/users");
 
         const retailerData = response.data.filter((users) => users.role === 2);
         setRetailers(retailerData);

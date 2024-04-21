@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./Components/Layout";
 import Login from "./Pages/Login";
-import EnquiryHistory from "./Components/EnquiryHistory";
+import EnquiryHistory from "./Pages/EnquiryHistory";
 import AdminDashboard from "./Pages/AdminDashboard";
 import UploadBrand from "./Components/UploadBrand";
 import AddSubCat from "./Components/AddSubCat";
@@ -13,6 +13,7 @@ import Formm from "./Components/Formm";
 import Users from "./Pages/Users";
 import FetchSpecifications from "./Components/FetchSpecifications";
 import MainModel from "./Components/MainModel";
+import Variant from "./Components/Variant";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/AddSubCat" element={<AddSubCat />} />
         <Route path="/Categories" element={<Categories />} />
         <Route path="/MainModel" element={<MainModel />} />
+        <Route path="/Variant" element={<Variant />} />
       </Routes>
     </Layout>
   );

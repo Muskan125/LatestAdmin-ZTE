@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const EditProduct = () => {
   const [productDetails, setProductDetails] = useState([]);
   const location = useLocation();
   const { specificationId } = location.state;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,6 +24,12 @@ const EditProduct = () => {
     fetchProducts();
   }, [specificationId]);
 
+  const handleAddVariant = (productDetailID) => {
+    navigate("/Variant", {
+      state: { productDetailID },
+    });
+  };
+
   return (
     <>
       <div>
@@ -33,6 +40,8 @@ const EditProduct = () => {
               <th className="border border-gray-300 p-2">Name</th>
               <th className="border border-gray-300 p-2">Category</th>
               <th className="border border-gray-300 p-2">Type</th>
+              <th className="border border-gray-300 p-2">GroupID</th>
+
               <th className="border border-gray-300 p-2">Action</th>
             </tr>
           </thead>
@@ -48,8 +57,14 @@ const EditProduct = () => {
                 <td className="border border-gray-300 p-2">
                   {productDetail.type}
                 </td>
+                <td className="border border-gray-300 p-2">
+                  {productDetail.groupId}
+                </td>
                 <td className="border border-gray-300 p-2 flex justify-center">
-                  <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                    onClick={() => handleAddVariant(productDetail._id)}
+                  >
                     Add Variant
                   </button>
                   <button className="bg-green-500 text-white px-4 py-2 rounded">

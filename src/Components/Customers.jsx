@@ -6,9 +6,7 @@ const Customers = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get(
-          "https://onestore-vert.vercel.app/users"
-        );
+        const response = await axios.get("http://97.74.92.218:7776/users");
 
         const customerData = response.data.filter((users) => users.role === 1); // Assuming role 2 is for retailers
         setCustomers(customerData); // Set the retailer data array
@@ -21,7 +19,7 @@ const Customers = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">Retailer Details</h2>
+      <h2 className="text-2xl font-bold mb-4">Customer Details</h2>
       <table className="w-full border-collapse border border-gray-200">
         <thead>
           <tr className="bg-gray-100">
